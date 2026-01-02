@@ -3,29 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roleta da Eliminação Global</title>
+    <title>Gira a Roda: Qual País Será Eliminado Hoje?</title>
+    <meta name="description" content="Sistema 100% aleatório e justo de eliminação de países. Gire a roda e descubra qual país será eliminado!">
     <link rel="stylesheet" href="style.css">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/jeremyhubble/Winwheel.js@master/Winwheel.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <h1>Gira a Roda: Qual País Será Eliminado Hoje?</h1>
-    </header>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-globe-americas"></i> Gira a Roda</h1>
+            <p class="subtitle">Qual País Será Eliminado Hoje?</p>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-value" id="remaining">195</div>
+                    <div class="stat-label">Países Restantes</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="eliminated">0</div>
+                    <div class="stat-label">Eliminados</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="round">1</div>
+                    <div class="stat-label">Rodada</div>
+                </div>
+            </div>
+        </header>
 
-    <main>
-        <canvas id="canvasRoleta" width="400" height="400">
-            Canvas não suportado no seu navegador.
-        </canvas>
-        <br>
-        <button id="btnGirar">GIRAR E ELIMINAR!</button>
-        <p id="resultado"></p>
-    </main>
-
-    <footer>
-        <p>Próxima eliminação em 24h.</p>
-    </footer>
+        <main class="main-content">
+            <section class="wheel-section">
+                <div class="wheel-container">
+                    <div class="wheel" id="wheel">
+                        <div class="wheel-center">
+                            <div class="wheel-pointer">
+                                <i class="fas fa-caret-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="wheel-controls">
+                        <button class="spin-btn" id="spin-btn">
+                            <i class="fas fa-play"></i> GIRAR E ELIMINAR!
+                        </button>
+                        <button class="reset-btn" id="reset-btn">
+                            <i class="fas fa-redo"></i> Reiniciar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-title">PRÓXIMA ELIMINAÇÃO</div>
+                    <div class="result-content">
+                        <div class="result-item">
+                            <span class="result-label">Continente:</span>
+                            <span class="result-value" id="result-continent">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">País Eliminado:</span>
+                            <span class="result-value" id="result-country">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Horário:</span>
+                            <span class="result-value" id="result-time">Agora</span>
+                        </div>
+                    </div>
+                    <div class="timer" id="timer">
+                        <i class="fas fa-clock"></i> Próxima eliminação em <span id="next-time">24h</span>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="history-section">
+                <h2><i class="fas fa-history"></i> Histórico de Eliminações</h2>
+                <div class="history-list" id="history-list">
+                    <div class="history-empty">
+                        <i class="fas fa-inbox"></i>
+                        <p>Nenhuma eliminação ainda.<br>Gire a roda para começar!</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="countries-section">
+                <h2><i class="fas fa-flag"></i> Todos os Países</h2>
+                <div class="continents-grid" id="continents-grid">
+                    <!-- Continentes serão carregados aqui -->
+                </div>
+            </section>
+        </main>
+        
+        <footer class="footer">
+            <p>Este sistema é 100% aleatório e justo. Todos os países têm a mesma chance.</p>
+            <p class="footer-note">Dados atualizados com países reconhecidos oficialmente • Desenvolvido para GitHub Pages</p>
+        </footer>
+    </div>
 
     <script src="script.js"></script>
 </body>
