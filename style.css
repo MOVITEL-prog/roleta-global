@@ -121,8 +121,8 @@ h1 {
 }
 
 .wheel {
-    width: 300px;
-    height: 300px;
+    width: 320px;
+    height: 320px;
     margin: 0 auto 40px;
     position: relative;
     border-radius: 50%;
@@ -134,7 +134,7 @@ h1 {
         #118AB2 240deg 300deg,
         #EF476F 300deg 360deg
     );
-    animation: wheelIdle 20s linear infinite;
+    animation: wheelIdle 30s linear infinite;
     box-shadow: 0 0 50px rgba(255, 107, 107, 0.3);
 }
 
@@ -148,21 +148,51 @@ h1 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 60px;
-    height: 60px;
+    width: 180px;
+    height: 180px;
     background: var(--dark);
     border-radius: 50%;
     z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid var(--accent);
 }
 
 .wheel-pointer {
     position: absolute;
-    top: -30px;
+    top: -40px;
     left: 50%;
     transform: translateX(-50%);
     color: var(--accent);
-    font-size: 2rem;
+    font-size: 2.5rem;
     z-index: 3;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.wheel-display {
+    text-align: center;
+    padding: 20px;
+}
+
+.country-flag-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.flag-icon {
+    font-size: 3.5rem;
+    margin-bottom: 5px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.country-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text);
+    min-height: 28px;
 }
 
 .wheel-controls {
@@ -197,11 +227,17 @@ h1 {
     transform: scale(0.98);
 }
 
-.reset-btn {
+.spin-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.reset-btn, .sound-btn {
     background: transparent;
     color: var(--text-light);
     border: 2px solid var(--text-light);
-    padding: 12px 30px;
+    padding: 10px 25px;
     font-size: 1rem;
     border-radius: 50px;
     cursor: pointer;
@@ -211,9 +247,19 @@ h1 {
     gap: 10px;
 }
 
-.reset-btn:hover {
+.reset-btn:hover, .sound-btn:hover {
     background: rgba(255, 255, 255, 0.1);
     color: var(--text);
+}
+
+.sound-control {
+    margin-top: 10px;
+}
+
+.sound-btn.active {
+    background: var(--success);
+    color: white;
+    border-color: var(--success);
 }
 
 .result-card {
@@ -263,9 +309,14 @@ h1 {
     color: var(--text);
 }
 
-#result-country {
-    color: var(--danger);
-    font-weight: 700;
+.country-result {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#result-country .flag-icon {
+    font-size: 2rem;
 }
 
 .timer {
@@ -287,6 +338,90 @@ h1 {
     font-size: 1.3rem;
 }
 
+/* Top 10 Section */
+.top10-section {
+    margin-bottom: 50px;
+}
+
+.top10-list {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 25px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.top10-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--text-light);
+}
+
+.top10-empty i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.top10-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.3s ease;
+}
+
+.top10-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.top10-rank {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, var(--primary), var(--accent));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.top10-rank.gold {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+}
+
+.top10-rank.silver {
+    background: linear-gradient(45deg, #C0C0C0, #A9A9A9);
+}
+
+.top10-rank.bronze {
+    background: linear-gradient(45deg, #CD7F32, #8B4513);
+}
+
+.top10-info {
+    flex-grow: 1;
+}
+
+.top10-country {
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.top10-details {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-top: 5px;
+}
+
 /* History Section */
 .history-section {
     margin-bottom: 50px;
@@ -301,12 +436,57 @@ h2 {
     gap: 15px;
 }
 
+.history-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.history-filter {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-light);
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.history-filter:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.history-filter.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.history-export {
+    background: transparent;
+    border: 1px solid var(--success);
+    color: var(--success);
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.history-export:hover {
+    background: rgba(6, 214, 160, 0.1);
+}
+
 .history-list {
     background: var(--card-bg);
     border-radius: 15px;
     padding: 25px;
     min-height: 200px;
-    max-height: 400px;
+    max-height: 500px;
     overflow-y: auto;
 }
 
@@ -324,13 +504,13 @@ h2 {
 
 .history-item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 10px;
     margin-bottom: 10px;
     transition: background 0.3s ease;
+    gap: 20px;
 }
 
 .history-item:hover {
@@ -344,15 +524,21 @@ h2 {
     min-width: 50px;
 }
 
+.history-flag {
+    font-size: 2rem;
+}
+
 .history-info {
     flex-grow: 1;
-    margin: 0 20px;
 }
 
 .history-country {
     font-size: 1.2rem;
     font-weight: 600;
     color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .history-continent {
@@ -364,7 +550,7 @@ h2 {
 .history-time {
     color: var(--text-light);
     font-size: 0.9rem;
-    min-width: 80px;
+    min-width: 100px;
     text-align: right;
 }
 
@@ -416,6 +602,9 @@ h2 {
     border-radius: 20px;
     font-size: 0.85rem;
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .country-tag.eliminated {
@@ -444,11 +633,21 @@ h2 {
 /* Animações */
 @keyframes spin {
     0% { transform: rotate(0deg); }
-    100% { transform: rotate(1440deg); }
+    100% { transform: rotate(2160deg); } /* 6 voltas completas */
 }
 
 .spinning {
-    animation: spin 2s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+    animation: spin 6s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+}
+
+@keyframes flagSpin {
+    0% { transform: scale(0.8) rotate(0deg); opacity: 0.5; }
+    50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+    100% { transform: scale(1) rotate(360deg); opacity: 1; }
+}
+
+.flag-spin {
+    animation: flagSpin 0.5s ease;
 }
 
 @keyframes highlight {
@@ -458,6 +657,16 @@ h2 {
 
 .highlight {
     animation: highlight 1s ease;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.pulse {
+    animation: pulse 0.5s ease;
 }
 
 /* Responsividade */
@@ -484,8 +693,17 @@ h2 {
     }
     
     .wheel {
-        width: 250px;
-        height: 250px;
+        width: 280px;
+        height: 280px;
+    }
+    
+    .wheel-center {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .top10-list {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -506,6 +724,16 @@ h2 {
         padding: 20px;
     }
     
+    .wheel {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .wheel-center {
+        width: 130px;
+        height: 130px;
+    }
+    
     .spin-btn {
         width: 100%;
         justify-content: center;
@@ -515,4 +743,14 @@ h2 {
     .continents-grid {
         grid-template-columns: 1fr;
     }
+    
+    .history-controls {
+        justify-content: center;
     }
+    
+    .history-export {
+        margin-left: 0;
+        width: 100%;
+        justify-content: center;
+    }
+        }
