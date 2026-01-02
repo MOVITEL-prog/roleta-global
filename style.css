@@ -1,4 +1,4 @@
-/* Reset e variáveis */
+/* Reset e variáveis - Tema Preto Minimalista */
 * {
     margin: 0;
     padding: 0;
@@ -6,23 +6,25 @@
 }
 
 :root {
-    --primary: #FF6B6B;
-    --secondary: #4ECDC4;
-    --accent: #FFD166;
-    --dark: #1A1A2E;
-    --darker: #16213E;
-    --card-bg: #0F3460;
-    --text: #FFFFFF;
-    --text-light: #B8B8D1;
-    --success: #06D6A0;
-    --danger: #EF476F;
-    --warning: #FFD166;
+    --primary: #1a1a1a;
+    --secondary: #2d2d2d;
+    --accent: #4a4a4a;
+    --dark: #0a0a0a;
+    --darker: #000000;
+    --card-bg: #1a1a1a;
+    --text: #ffffff;
+    --text-light: #b0b0b0;
+    --text-lighter: #808080;
+    --border: #333333;
+    --danger: #8b0000;
+    --success: #006400;
+    --warning: #8b7500;
     --font: 'Poppins', sans-serif;
 }
 
 body {
     font-family: var(--font);
-    background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+    background-color: var(--darker);
     color: var(--text);
     min-height: 100vh;
     line-height: 1.6;
@@ -39,26 +41,29 @@ body {
     text-align: center;
     padding: 30px 0;
     margin-bottom: 30px;
+    border-bottom: 1px solid var(--border);
 }
 
 h1 {
-    font-size: 3.5rem;
-    font-weight: 800;
-    background: linear-gradient(45deg, var(--primary), var(--accent));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    font-size: 3rem;
+    font-weight: 700;
     margin-bottom: 10px;
+    color: var(--text);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 15px;
 }
 
+h1 i {
+    color: var(--text-light);
+}
+
 .subtitle {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     color: var(--text-light);
     margin-bottom: 30px;
+    font-weight: 300;
 }
 
 .stats {
@@ -70,23 +75,23 @@ h1 {
 }
 
 .stat-box {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
     padding: 20px 30px;
     min-width: 150px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform 0.3s ease;
 }
 
 .stat-box:hover {
     transform: translateY(-5px);
+    border-color: var(--text-light);
 }
 
 .stat-value {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    color: var(--accent);
+    color: var(--text);
     line-height: 1;
 }
 
@@ -114,10 +119,10 @@ h1 {
 
 .wheel-container {
     background: var(--card-bg);
-    border-radius: 20px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     padding: 40px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .wheel {
@@ -127,15 +132,15 @@ h1 {
     position: relative;
     border-radius: 50%;
     background: conic-gradient(
-        #FF6B6B 0deg 60deg,
-        #4ECDC4 60deg 120deg,
-        #FFD166 120deg 180deg,
-        #06D6A0 180deg 240deg,
-        #118AB2 240deg 300deg,
-        #EF476F 300deg 360deg
+        #333333 0deg 60deg,
+        #444444 60deg 120deg,
+        #555555 120deg 180deg,
+        #666666 180deg 240deg,
+        #777777 240deg 300deg,
+        #888888 300deg 360deg
     );
     animation: wheelIdle 30s linear infinite;
-    box-shadow: 0 0 50px rgba(255, 107, 107, 0.3);
+    border: 4px solid var(--border);
 }
 
 @keyframes wheelIdle {
@@ -156,7 +161,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 5px solid var(--accent);
+    border: 4px solid var(--border);
 }
 
 .wheel-pointer {
@@ -164,7 +169,7 @@ h1 {
     top: -40px;
     left: 50%;
     transform: translateX(-50%);
-    color: var(--accent);
+    color: var(--text);
     font-size: 2.5rem;
     z-index: 3;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
@@ -185,7 +190,7 @@ h1 {
 .flag-icon {
     font-size: 3.5rem;
     margin-bottom: 5px;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    filter: grayscale(100%) brightness(200%);
 }
 
 .country-name {
@@ -203,24 +208,23 @@ h1 {
 }
 
 .spin-btn {
-    background: linear-gradient(45deg, var(--primary), var(--danger));
+    background: var(--primary);
     color: white;
-    border: none;
+    border: 1px solid var(--border);
     padding: 20px 50px;
     font-size: 1.3rem;
     font-weight: 600;
-    border-radius: 50px;
+    border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     gap: 15px;
-    box-shadow: 0 5px 20px rgba(239, 71, 111, 0.4);
 }
 
 .spin-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 25px rgba(239, 71, 111, 0.6);
+    background: var(--secondary);
+    border-color: var(--text-light);
 }
 
 .spin-btn:active {
@@ -228,7 +232,7 @@ h1 {
 }
 
 .spin-btn:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
     transform: none !important;
 }
@@ -236,10 +240,10 @@ h1 {
 .reset-btn, .sound-btn {
     background: transparent;
     color: var(--text-light);
-    border: 2px solid var(--text-light);
+    border: 1px solid var(--border);
     padding: 10px 25px;
     font-size: 1rem;
-    border-radius: 50px;
+    border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -248,8 +252,9 @@ h1 {
 }
 
 .reset-btn:hover, .sound-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--secondary);
     color: var(--text);
+    border-color: var(--text-light);
 }
 
 .sound-control {
@@ -257,33 +262,36 @@ h1 {
 }
 
 .sound-btn.active {
-    background: var(--success);
+    background: var(--primary);
     color: white;
-    border-color: var(--success);
+    border-color: var(--text);
 }
 
 .result-card {
     background: var(--card-bg);
-    border-radius: 20px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     padding: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .result-title {
     font-size: 1.2rem;
-    color: var(--accent);
+    color: var(--text);
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 25px;
     text-align: center;
     font-weight: 600;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
 }
 
 .result-content {
     background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
+    border-radius: 4px;
     padding: 25px;
     margin-bottom: 25px;
+    border: 1px solid var(--border);
 }
 
 .result-item {
@@ -291,7 +299,7 @@ h1 {
     justify-content: space-between;
     align-items: center;
     padding: 12px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--border);
 }
 
 .result-item:last-child {
@@ -320,13 +328,13 @@ h1 {
 }
 
 .timer {
-    background: rgba(6, 214, 160, 0.1);
-    border: 2px solid var(--success);
-    border-radius: 15px;
+    background: rgba(0, 100, 0, 0.1);
+    border: 1px solid var(--border);
+    border-radius: 4px;
     padding: 15px;
     text-align: center;
     font-size: 1.1rem;
-    color: var(--success);
+    color: var(--text);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -336,6 +344,7 @@ h1 {
 #next-time {
     font-weight: 700;
     font-size: 1.3rem;
+    color: var(--text);
 }
 
 /* Top 10 Section */
@@ -345,7 +354,8 @@ h1 {
 
 .top10-list {
     background: var(--card-bg);
-    border-radius: 15px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     padding: 25px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -357,6 +367,8 @@ h1 {
     text-align: center;
     padding: 50px 20px;
     color: var(--text-light);
+    border: 1px dashed var(--border);
+    border-radius: 4px;
 }
 
 .top10-empty i {
@@ -366,42 +378,51 @@ h1 {
 }
 
 .top10-item {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 4px;
     padding: 20px;
     display: flex;
     align-items: center;
     gap: 20px;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .top10-item:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--text-light);
 }
 
 .top10-rank {
     width: 40px;
     height: 40px;
-    background: linear-gradient(45deg, var(--primary), var(--accent));
+    background: var(--primary);
+    border: 1px solid var(--border);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
     font-size: 1.2rem;
+    color: var(--text);
 }
 
 .top10-rank.gold {
-    background: linear-gradient(45deg, #FFD700, #FFA500);
+    background: #333;
+    color: #ffd700;
+    border-color: #ffd700;
 }
 
 .top10-rank.silver {
-    background: linear-gradient(45deg, #C0C0C0, #A9A9A9);
+    background: #333;
+    color: #c0c0c0;
+    border-color: #c0c0c0;
 }
 
 .top10-rank.bronze {
-    background: linear-gradient(45deg, #CD7F32, #8B4513);
+    background: #333;
+    color: #cd7f32;
+    border-color: #cd7f32;
 }
 
 .top10-info {
@@ -428,12 +449,14 @@ h1 {
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-bottom: 25px;
     color: var(--text);
     display: flex;
     align-items: center;
     gap: 15px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
 }
 
 .history-controls {
@@ -444,31 +467,32 @@ h2 {
 }
 
 .history-filter {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-color);
+    background: var(--primary);
+    border: 1px solid var(--border);
     color: var(--text-light);
     padding: 8px 20px;
-    border-radius: 20px;
+    border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .history-filter:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--secondary);
+    color: var(--text);
 }
 
 .history-filter.active {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
+    background: var(--secondary);
+    color: var(--text);
+    border-color: var(--text-light);
 }
 
 .history-export {
     background: transparent;
-    border: 1px solid var(--success);
-    color: var(--success);
+    border: 1px solid var(--border);
+    color: var(--text);
     padding: 8px 20px;
-    border-radius: 20px;
+    border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -478,12 +502,13 @@ h2 {
 }
 
 .history-export:hover {
-    background: rgba(6, 214, 160, 0.1);
+    background: var(--primary);
 }
 
 .history-list {
     background: var(--card-bg);
-    border-radius: 15px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     padding: 25px;
     min-height: 200px;
     max-height: 500px;
@@ -494,6 +519,8 @@ h2 {
     text-align: center;
     padding: 50px 20px;
     color: var(--text-light);
+    border: 1px dashed var(--border);
+    border-radius: 4px;
 }
 
 .history-empty i {
@@ -507,7 +534,8 @@ h2 {
     align-items: center;
     padding: 15px 20px;
     background: rgba(255, 255, 255, 0.03);
-    border-radius: 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
     margin-bottom: 10px;
     transition: background 0.3s ease;
     gap: 20px;
@@ -515,10 +543,11 @@ h2 {
 
 .history-item:hover {
     background: rgba(255, 255, 255, 0.05);
+    border-color: var(--text-light);
 }
 
 .history-round {
-    color: var(--accent);
+    color: var(--text);
     font-weight: 700;
     font-size: 1.2rem;
     min-width: 50px;
@@ -563,9 +592,9 @@ h2 {
 
 .continent-card {
     background: var(--card-bg);
-    border-radius: 15px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     padding: 25px;
-    border-left: 5px solid var(--primary);
 }
 
 .continent-header {
@@ -573,6 +602,8 @@ h2 {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
 }
 
 .continent-name {
@@ -597,9 +628,10 @@ h2 {
 }
 
 .country-tag {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
     padding: 6px 12px;
-    border-radius: 20px;
+    border-radius: 4px;
     font-size: 0.85rem;
     transition: all 0.3s ease;
     display: flex;
@@ -607,11 +639,15 @@ h2 {
     gap: 5px;
 }
 
+.country-tag:hover {
+    border-color: var(--text-light);
+}
+
 .country-tag.eliminated {
-    background: rgba(239, 71, 111, 0.2);
-    color: var(--danger);
+    background: rgba(139, 0, 0, 0.1);
+    color: var(--text-light);
     text-decoration: line-through;
-    opacity: 0.7;
+    border-color: var(--danger);
 }
 
 /* Footer */
@@ -619,7 +655,7 @@ h2 {
     text-align: center;
     padding: 30px 0;
     margin-top: 50px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--border);
     color: var(--text-light);
     font-size: 0.9rem;
 }
@@ -651,7 +687,7 @@ h2 {
 }
 
 @keyframes highlight {
-    0% { background-color: rgba(239, 71, 111, 0.3); }
+    0% { background-color: rgba(255, 255, 255, 0.1); }
     100% { background-color: transparent; }
 }
 
@@ -689,7 +725,7 @@ h2 {
     }
     
     .stat-value {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
     }
     
     .wheel {
@@ -753,4 +789,22 @@ h2 {
         width: 100%;
         justify-content: center;
     }
-        }
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-light);
+}
