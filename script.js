@@ -163,7 +163,7 @@ function init() {
     elements.eliminatedEl = document.getElementById('eliminated');
     elements.roundEl = document.getElementById('round');
     elements.resultContinent = document.getElementById('result-continent');
-    elements.resultCountry = document.getElementById('result-country').querySelector('.country-name');
+    elements.resultCountry = document.querySelector('#result-country .country-name');
     elements.resultFlag = document.getElementById('result-flag');
     elements.resultTime = document.getElementById('result-time');
     elements.nextTime = document.getElementById('next-time');
@@ -203,6 +203,8 @@ function init() {
     // Inicializar interface
     updateUI();
     renderContinents();
+    updateTop10();
+    updateHistory();
     
     console.log('Jogo inicializado! Países totais:', gameState.totalCountries);
 }
@@ -213,6 +215,29 @@ function loadGameState() {
     
     if (saved) {
         const data = JSON.parse(saved);
+        
+        // Migração para versão antiga dos dados
+        if (data.eliminated && data.eliminated.length > 0) {
+            // Se os dados antigos tiverem country como string em vez de objeto
+            data.eliminated = data.eliminated.map(elim => {
+                // Se country for uma string, precisamos encontrar o código da bandeira
+                if (typeof elim.country === 'string') {
+                    // Procurar o país em todos os continentes
+                    for (const continent in COUNTRIES) {
+                        const found = COUNTRIES[continent].find(c => c.name === elim.country);
+                        if (found) {
+                            return {
+                                ...elim,
+                                country: found.name,
+                                code: found.code
+                            };
+                        }
+                    }
+                }
+                return elim;
+            });
+        }
+        
         gameState = {
             ...data,
             soundEnabled: data.soundEnabled !== undefined ? data.soundEnabled : true,
@@ -222,6 +247,17 @@ function loadGameState() {
         // Reconstruir objetos de países restantes se necessário
         if (!gameState.remaining || Object.keys(gameState.remaining).length === 0) {
             initializeRemainingCountries();
+        } else {
+            // Garantir que remaining tem a estrutura correta
+            for (const continent in gameState.remaining) {
+                // Se os países em remaining forem strings, converter para objetos
+                if (gameState.remaining[continent].length > 0 && typeof gameState.remaining[continent][0] === 'string') {
+                    gameState.remaining[continent] = gameState.remaining[continent].map(countryName => {
+                        const found = COUNTRIES[continent].find(c => c.name === countryName);
+                        return found || {name: countryName, code: 'xx'};
+                    });
+                }
+            }
         }
     } else {
         // Novo jogo
@@ -250,7 +286,21 @@ function initializeRemainingCountries() {
 
 // Salvar estado do jogo
 function saveGameState() {
-    localStorage.setItem('countryEliminationGame', JSON.stringify(gameState));
+    // Salvar apenas dados essenciais
+    const saveData = {
+        eliminated: gameState.eliminated,
+        round: gameState.round,
+        lastElimination: gameState.lastElimination,
+        soundEnabled: gameState.soundEnabled,
+        // Salvar remaining apenas com nomes para economizar espaço
+        remaining: {}
+    };
+    
+    for (const continent in gameState.remaining) {
+        saveData.remaining[continent] = gameState.remaining[continent].map(country => country.name);
+    }
+    
+    localStorage.setItem('countryEliminationGame', JSON.stringify(saveData));
 }
 
 // Girar a roda
@@ -382,8 +432,25 @@ function finishSpin() {
         selectedContinent = selectRandomContinent();
     }
     
+    if (!selectedContinent) {
+        alert('Erro: Nenhum continente disponível!');
+        gameState.spinning = false;
+        elements.spinBtn.disabled = false;
+        elements.spinBtn.innerHTML = '<i class="fas fa-play"></i> GIRAR E ELIMINAR!';
+        return;
+    }
+    
+   
     // Selecionar país final
     const countries = gameState.remaining[selectedContinent];
+    if (countries.length === 0) {
+        alert('Erro: Nenhum país disponível neste continente!');
+        gameState.spinning = false;
+        elements.spinBtn.disabled = false;
+        elements.spinBtn.innerHTML = '<i class="fas fa-play"></i> GIRAR E ELIMINAR!';
+        return;
+    }
+    
     const randomCountryIndex = Math.floor(Math.random() * countries.length);
     const eliminatedCountry = countries[randomCountryIndex];
     
@@ -434,6 +501,8 @@ function eliminateCountry(continent, country, index) {
     updateTop10();
     updateHistory();
     updateContinents();
+    
+    console.log('País eliminado:', country.name, 'do continente:', CONTINENT_NAMES[continent]);
 }
 
 // Atualizar interface
@@ -454,9 +523,10 @@ function updateUI() {
         elements.resultTime.textContent = gameState.lastElimination.timestamp;
         
         // Adicionar efeito de destaque
-        elements.resultCountry.parentElement.classList.add('highlight');
+        const resultItem = elements.resultCountry.parentElement;
+        resultItem.classList.add('highlight');
         setTimeout(() => {
-            elements.resultCountry.parentElement.classList.remove('highlight');
+            resultItem.classList.remove('highlight');
         }, 1000);
     }
     
