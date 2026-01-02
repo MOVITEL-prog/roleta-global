@@ -1,95 +1,76 @@
-// ** Lista de Países / Itens (FASE 2: PAÍSES)**
-// **********************************************
-// IMPORTANTE: Você deve atualizar esta lista após cada eliminação!
-// Para a Fase 1 (Continentes), apenas troque os nomes.
-let paisesAtivos = [
-    { text: 'Brasil', fillStyle: '#2ecc71' },
-    { text: 'Portugal', fillStyle: '#e74c3c' },
-    { text: 'Angola', fillStyle: '#f1c40f' },
-    { text: 'Japão', fillStyle: '#3498db' },
-    { text: 'Nigéria', fillStyle: '#9b59b6' },
-    { text: 'Canadá', fillStyle: '#1abc9c' },
-    { text: 'Austrália', fillStyle: '#e67e22' },
-    { text: 'Índia', fillStyle: '#c0392b' }
+// ** CONFIGURAÇÃO DA FASE 1: CONTINENTES **
+// IMPORTANTE: Para a próxima rodada, você deve remover o continente eliminado desta lista
+// e fazer o upload do arquivo atualizado no GitHub.
+let itensAtivos = [
+    { text: 'África', fillStyle: '#2ecc71' },     // Verde
+    { text: 'Europa', fillStyle: '#e74c3c' },     // Vermelho
+    { text: 'Ásia', fillStyle: '#f1c40f' },       // Amarelo
+    { text: 'América N.', fillStyle: '#3498db' }, // Azul
+    { text: 'América S.', fillStyle: '#9b59b6' }, // Roxo
+    { text: 'Oceania', fillStyle: '#e67e22' }     // Laranja
 ];
-// **********************************************
 
 let roleta = null;
 let wheelSpinning = false;
-const canvas = document.getElementById('canvasRoleta');
 const btnGirar = document.getElementById('btnGirar');
 const resultado = document.getElementById('resultado');
 
-// Função para iniciar e desenhar a roleta
+// 1. Função que inicializa e desenha a roleta
 function iniciarRoleta() {
-    // Se a roleta já existe, remove o canvas antigo para desenhar o novo
-    if (roleta) {
-        roleta.clearCanvas();
-    }
-
+    
     roleta = new Winwheel({
-        'numSegments': paisesAtivos.length,     // Número de países
-        'outerRadius': 212,                     // Tamanho da roleta
-        'canvasId': 'canvasRoleta',             // ID do canvas
-        'segments': paisesAtivos,               // Array de países
-        'animation': {                          // Configurações da animação
+        'numSegments': itensAtivos.length,
+        'outerRadius': 170, // Tamanho da roleta
+        'canvasId': 'canvasRoleta',
+        'segments': itensAtivos,
+        'animation': {
             'type': 'spinToStop',
-            'duration': 5,                      // 5 segundos de giro
-            'spins': 8,                         // 8 rotações completas
-            'callbackFinished': alertResultado   // Função a ser chamada ao parar
+            'duration': 5, // Duração do giro em segundos
+            'spins': 8,    // Número de rotações completas
+            'callbackFinished': alertResultado // Função chamada ao parar
         }
     });
 
-    // Configurações de texto padrão
+    // Estilos para o texto
     roleta.textFontSize = 14;
     roleta.textFontWeight = 'bold';
     roleta.textFillStyle = '#2c3e50';
-
-    // Redesenha a roleta com as novas configurações
     roleta.draw();
 }
 
-// Função chamada quando a roleta para
+// 2. Função chamada quando a roleta para
 function alertResultado(segmento) {
     wheelSpinning = false;
     btnGirar.disabled = false;
-    btnGirar.style.backgroundColor = '#2ecc71';
+    btnGirar.style.backgroundColor = '#2ecc71'; 
 
-    const paisEliminado = roleta.get</*in-line*/ $WiningSegment$>().text;
-    resultado.innerHTML = `❌ **ELIMINADO!** O país que saiu é: ${paisEliminado}!`;
-
-    // **LOGICA DE ATUALIZAÇÃO IMPORTANTE**
+    // Pega o texto do item sorteado
+    const itemEliminado = segmento.text;
     
-    // 1. Remove o país eliminado da lista
-    paisesAtivos = paisesAtivos.filter(pais => pais.text !== paisEliminado);
+    resultado.innerHTML = `❌ **ELIMINADO!** Adeus: ${itemEliminado}!`;
+    resultado.style.color = "red";
 
-    // 2. Desabilita o botão para que não gire de novo até a próxima rodada
-    btnGirar.disabled = true;
-    btnGirar.style.backgroundColor = '#7f8c8d'; 
-    btnGirar.innerHTML = 'AGUARDANDO PRÓXIMA RODADA (Atualize o código!)';
-
-
-    // Dica: Para o uso no Instagram, após ver o resultado aqui, 
-    // você edita o vídeo da roleta gravada para parar neste ponto!
-
-    // Se sobrou apenas 1, declara o vencedor
-    if (paisesAtivos.length === 1) {
-        resultado.innerHTML += `<br><br>🏆 **PARABÉNS!** O país VENCEDOR é: ${paisesAtivos[0].text}!`;
-    }
+    // Ocultar o botão para que o usuário não clique de novo
+    btnGirar.style.display = "none";
+    
+    // Para preparar para a próxima rodada, o desenvolvedor (você)
+    // deve editar a lista 'itensAtivos' no código fonte do GitHub
+    // e remover o item eliminado.
 }
 
-// Lógica de giro ao clicar no botão
+// 3. Lógica de giro ao clicar no botão
 btnGirar.addEventListener('click', () => {
     if (wheelSpinning === false) {
         resultado.innerHTML = 'Girando...';
+        resultado.style.color = "#e67e22";
+        
         btnGirar.disabled = true;
-        btnGirar.style.backgroundColor = '#f39c12';
+        btnGirar.style.backgroundColor = '#95a5a6'; // Cinza
+        
         wheelSpinning = true;
-
-        // Inicia o giro
-        roleta.startAnimation();
+        roleta.startAnimation(); // Inicia o giro
     }
 });
 
-// Inicializa a roleta ao carregar a página
+// 4. Inicializa a roleta ao carregar a página
 iniciarRoleta();
