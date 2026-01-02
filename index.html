@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roleta da Eliminação Global</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
-    <script src="https://cdn.rawgit.com/jeremyhubble/Winwheel.js/master/Winwheel.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jeremyhubble/Winwheel.js@master/Winwheel.min.js"></script>
 </head>
 <body>
     <header>
@@ -14,9 +15,10 @@
     </header>
 
     <main>
-        <canvas id="canvasRoleta" width="500" height="500">
+        <canvas id="canvasRoleta" width="400" height="400">
             Canvas não suportado no seu navegador.
         </canvas>
+        <br>
         <button id="btnGirar">GIRAR E ELIMINAR!</button>
         <p id="resultado"></p>
     </main>
