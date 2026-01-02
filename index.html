@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
 </head>
 <body>
     <div class="container">
@@ -19,7 +20,7 @@
             
             <div class="stats">
                 <div class="stat-box">
-                    <div class="stat-value" id="remaining">195</div>
+                    <div class="stat-value" id="remaining">196</div>
                     <div class="stat-label">Países Restantes</div>
                 </div>
                 <div class="stat-box">
@@ -41,6 +42,12 @@
                             <div class="wheel-pointer">
                                 <i class="fas fa-caret-down"></i>
                             </div>
+                            <div class="wheel-display" id="wheel-display">
+                                <div class="country-flag-display">
+                                    <span class="flag-icon" id="current-flag"></span>
+                                    <div class="country-name" id="current-country">Prepare-se...</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
@@ -51,6 +58,11 @@
                         <button class="reset-btn" id="reset-btn">
                             <i class="fas fa-redo"></i> Reiniciar
                         </button>
+                        <div class="sound-control">
+                            <button class="sound-btn" id="sound-btn">
+                                <i class="fas fa-volume-up"></i> Som
+                            </button>
+                        </div>
                     </div>
                 </div>
                 
@@ -63,7 +75,10 @@
                         </div>
                         <div class="result-item">
                             <span class="result-label">País Eliminado:</span>
-                            <span class="result-value" id="result-country">-</span>
+                            <div class="country-result" id="result-country">
+                                <span class="flag-icon" id="result-flag"></span>
+                                <span class="country-name">-</span>
+                            </div>
                         </div>
                         <div class="result-item">
                             <span class="result-label">Horário:</span>
@@ -76,8 +91,26 @@
                 </div>
             </section>
             
+            <section class="top10-section">
+                <h2><i class="fas fa-trophy"></i> Top 10 - Últimos Sobreviventes</h2>
+                <div class="top10-list" id="top10-list">
+                    <div class="top10-empty">
+                        <i class="fas fa-crown"></i>
+                        <p>O Top 10 aparecerá aqui quando houver eliminações suficientes!</p>
+                    </div>
+                </div>
+            </section>
+            
             <section class="history-section">
                 <h2><i class="fas fa-history"></i> Histórico de Eliminações</h2>
+                <div class="history-controls">
+                    <button class="history-filter active" data-filter="all">Todas</button>
+                    <button class="history-filter" data-filter="today">Hoje</button>
+                    <button class="history-filter" data-filter="week">Esta Semana</button>
+                    <button class="history-export" id="export-btn">
+                        <i class="fas fa-download"></i> Exportar
+                    </button>
+                </div>
                 <div class="history-list" id="history-list">
                     <div class="history-empty">
                         <i class="fas fa-inbox"></i>
@@ -99,6 +132,17 @@
             <p class="footer-note">Dados atualizados com países reconhecidos oficialmente • Desenvolvido para GitHub Pages</p>
         </footer>
     </div>
+
+    <!-- Áudio para efeitos sonoros -->
+    <audio id="spin-sound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-spinning-wheel-909.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="click-sound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="eliminate-sound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" type="audio/mpeg">
+    </audio>
 
     <script src="script.js"></script>
 </body>
